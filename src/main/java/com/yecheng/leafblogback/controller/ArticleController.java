@@ -1,19 +1,15 @@
 package com.yecheng.leafblogback.controller;
 
-import com.yecheng.leafblogback.Dto.PageDto;
-import com.yecheng.leafblogback.entity.Articleinfo;
+import com.yecheng.leafblogback.bean.dto.ArticleListByCategoryDto;
+import com.yecheng.leafblogback.bean.dto.PageDto;
 import com.yecheng.leafblogback.service.ArticleinfoService;
 import com.yecheng.leafblogback.utils.ResponseResult;
-import com.yecheng.leafblogback.vo.ArticleVo;
-import com.yecheng.leafblogback.vo.HotArticleVo;
-import com.yecheng.leafblogback.vo.TimeArticleVo;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.yecheng.leafblogback.bean.vo.ArticleVo;
+import com.yecheng.leafblogback.bean.vo.HotArticleVo;
+import com.yecheng.leafblogback.bean.vo.TimeArticleVo;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.sql.Time;
 import java.util.List;
 
 /**
@@ -69,6 +65,16 @@ public class ArticleController {
     @GetMapping("detail/{id}")
     public ResponseResult<ArticleVo> getArticleDetail(@PathVariable("id") Long id){
         return articleinfoService.articleDetailById(id);
+    }
+    /**
+     * 按类别查找文章列表
+     *
+     * @param byCategoryDto 按类别dto
+     * @return {@link ResponseResult}<{@link List}<{@link ArticleVo}>>
+     */
+    @PostMapping("category")
+    public ResponseResult<List<ArticleVo>> getArticleListByCategory(@RequestBody ArticleListByCategoryDto byCategoryDto){
+        return articleinfoService.articleListByCategory(byCategoryDto);
     }
 
 

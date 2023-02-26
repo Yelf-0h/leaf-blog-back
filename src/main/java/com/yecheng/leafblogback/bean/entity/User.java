@@ -1,9 +1,10 @@
-package com.yecheng.leafblogback.entity;
+package com.yecheng.leafblogback.bean.entity;
 
 import java.util.Date;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.yecheng.leafblogback.utils.ResponseResult;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +23,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @NoArgsConstructor
 @TableName("ly_user")
 public class User  {
-    @TableId
+    @TableId(type = IdType.AUTO)
     /**
     主键id
     */    
@@ -43,7 +44,7 @@ public class User  {
     /**
     手机号
     */
-    private Long phonenumber;
+    private String phonenumber;
     /**
     是否删除(0正常，1删除)
     */
@@ -59,7 +60,7 @@ public class User  {
     /**
     创建账号的时间
     */
-    private Date createtime;
+    private String createtime;
     /**
     更新用户信息的用户id(0自身修改)
     */
@@ -67,8 +68,9 @@ public class User  {
     /**
     更新账号信息的时间
     */
-    private Date updatetime;
+    private String updatetime;
 
+    private String headimg;
 
 
 

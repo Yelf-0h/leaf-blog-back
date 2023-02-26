@@ -1,8 +1,10 @@
-package com.yecheng.leafblogback.entity;
+package com.yecheng.leafblogback.bean.entity;
 
 import java.util.Date;
 
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.IdType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,14 +22,14 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @NoArgsConstructor
 @TableName("ly_comment")
 public class Comment  {
-    @TableId
+    @TableId(type = IdType.AUTO)
     /**
     主键id
     */    
     private Long id;
 
     /**
-    文章id
+    文章id,文章id为0则为留言
     */
     private Long articleid;
     /**
@@ -41,7 +43,9 @@ public class Comment  {
     /**
     评论时间
     */
-    private Date createtime;
+    private String createtime;
+
+    private String content;
 
 
 

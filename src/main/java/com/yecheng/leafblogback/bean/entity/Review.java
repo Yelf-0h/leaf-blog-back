@@ -1,7 +1,9 @@
-package com.yecheng.leafblogback.entity;
+package com.yecheng.leafblogback.bean.entity;
 
 
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.IdType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +21,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @NoArgsConstructor
 @TableName("ly_review")
 public class Review  {
-    @TableId
+    @TableId(type = IdType.AUTO)
     /**
     主键id
     */    

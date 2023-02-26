@@ -15,6 +15,7 @@ public class ResponseResult<T> implements Serializable {
     private Integer code;
     private String msg;
     private T data;
+    private Long total;
 
     public ResponseResult() {
         this.code = AppHttpCodeEnum.SUCCESS.getCode();
@@ -55,6 +56,15 @@ public class ResponseResult<T> implements Serializable {
         if(data!=null) {
             result.setData(data);
         }
+        return result;
+    }
+
+    public static ResponseResult okResult(Object data,Long total) {
+        ResponseResult result = setAppHttpCodeEnum(AppHttpCodeEnum.SUCCESS, AppHttpCodeEnum.SUCCESS.getMsg());
+        if(data!=null) {
+            result.setData(data);
+        }
+        result.setTotal(total);
         return result;
     }
 
@@ -116,6 +126,14 @@ public class ResponseResult<T> implements Serializable {
 
     public T getData() {
         return data;
+    }
+
+    public Long getTotal() {
+        return total;
+    }
+
+    public void setTotal(Long total) {
+        this.total = total;
     }
 
     public void setData(T data) {

@@ -1,4 +1,4 @@
-package com.yecheng.leafblogback.vo;
+package com.yecheng.leafblogback.bean.vo;
 
 import lombok.Data;
 

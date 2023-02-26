@@ -1,6 +1,6 @@
 package com.yecheng.leafblogback.service.impl;
 
-import com.yecheng.leafblogback.entity.Admin;
+import com.yecheng.leafblogback.bean.entity.Admin;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yecheng.leafblogback.mapper.AdminMapper;

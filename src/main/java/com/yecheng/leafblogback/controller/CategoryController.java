@@ -2,7 +2,7 @@ package com.yecheng.leafblogback.controller;
 
 import com.yecheng.leafblogback.service.CategoryService;
 import com.yecheng.leafblogback.utils.ResponseResult;
-import com.yecheng.leafblogback.vo.CategoryVo;
+import com.yecheng.leafblogback.bean.vo.CategoryVo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

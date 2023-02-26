@@ -1,7 +1,7 @@
 package com.yecheng.leafblogback.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.yecheng.leafblogback.entity.Logininfo;
+import com.yecheng.leafblogback.bean.entity.Logininfo;
 
 /**
  * (Logininfo)表服务接口

@@ -14,6 +14,8 @@ public enum AppHttpCodeEnum {
      * 错误标识
      */
     ERROR(500,"出现异常"),
+    PARAMS_ERROR(5003,"请求有误，参数异常！"),
+    LOGIN_ERROR(5004,"账号或密码错误！"),
 
     ARTICLE_ERROR(5001,"请求有误，找不到该文章！"),
     REVIEW_ERROR(5002,"请求有误，获取游览量失败！");

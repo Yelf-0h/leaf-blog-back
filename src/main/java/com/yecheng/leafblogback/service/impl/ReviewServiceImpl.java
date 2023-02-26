@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yecheng.leafblogback.mapper.ReviewMapper;
-import com.yecheng.leafblogback.entity.Review;
+import com.yecheng.leafblogback.bean.entity.Review;
 import com.yecheng.leafblogback.service.ReviewService;
 
 import static com.yecheng.leafblogback.utils.AppHttpCodeEnum.REVIEW_ERROR;

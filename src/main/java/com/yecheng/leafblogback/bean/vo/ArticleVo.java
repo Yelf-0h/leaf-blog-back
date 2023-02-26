@@ -1,4 +1,4 @@
-package com.yecheng.leafblogback.vo;
+package com.yecheng.leafblogback.bean.vo;
 
 import lombok.Data;
 
@@ -56,4 +56,6 @@ public class ArticleVo {
      * 评论数
      */
     private Long commentSum;
+
+    private Integer istop;
 }

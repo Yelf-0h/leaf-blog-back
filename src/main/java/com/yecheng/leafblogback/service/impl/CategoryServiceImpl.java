@@ -1,12 +1,12 @@
 package com.yecheng.leafblogback.service.impl;
 
 import com.yecheng.leafblogback.utils.ResponseResult;
-import com.yecheng.leafblogback.vo.CategoryVo;
+import com.yecheng.leafblogback.bean.vo.CategoryVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yecheng.leafblogback.mapper.CategoryMapper;
-import com.yecheng.leafblogback.entity.Category;
+import com.yecheng.leafblogback.bean.entity.Category;
 import com.yecheng.leafblogback.service.CategoryService;
 
 import java.util.ArrayList;

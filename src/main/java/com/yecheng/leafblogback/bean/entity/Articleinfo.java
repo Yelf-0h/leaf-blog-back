@@ -1,9 +1,10 @@
-package com.yecheng.leafblogback.entity;
+package com.yecheng.leafblogback.bean.entity;
 
 import java.util.Date;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +25,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @NoArgsConstructor
 @TableName("ly_articleinfo")
 public class Articleinfo  {
-    @TableId
+    @TableId(type = IdType.AUTO)
     /**
     主键id
     */    

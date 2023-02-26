@@ -1,7 +1,7 @@
 package com.yecheng.leafblogback.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.yecheng.leafblogback.entity.Review;
+import com.yecheng.leafblogback.bean.entity.Review;
 import com.yecheng.leafblogback.utils.ResponseResult;
 
 /**

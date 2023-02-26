@@ -1,7 +1,7 @@
 package com.yecheng.leafblogback.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.yecheng.leafblogback.entity.Admin;
+import com.yecheng.leafblogback.bean.entity.Admin;
 
 /**
  * (Admin)表服务接口

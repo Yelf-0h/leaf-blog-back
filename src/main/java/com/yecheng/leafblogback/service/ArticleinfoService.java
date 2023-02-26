@@ -1,12 +1,13 @@
 package com.yecheng.leafblogback.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.yecheng.leafblogback.Dto.PageDto;
-import com.yecheng.leafblogback.entity.Articleinfo;
+import com.yecheng.leafblogback.bean.dto.ArticleListByCategoryDto;
+import com.yecheng.leafblogback.bean.dto.PageDto;
+import com.yecheng.leafblogback.bean.entity.Articleinfo;
 import com.yecheng.leafblogback.utils.ResponseResult;
-import com.yecheng.leafblogback.vo.ArticleVo;
-import com.yecheng.leafblogback.vo.HotArticleVo;
-import com.yecheng.leafblogback.vo.TimeArticleVo;
+import com.yecheng.leafblogback.bean.vo.ArticleVo;
+import com.yecheng.leafblogback.bean.vo.HotArticleVo;
+import com.yecheng.leafblogback.bean.vo.TimeArticleVo;
 
 import java.util.List;
 
@@ -48,6 +49,14 @@ public interface ArticleinfoService extends IService<Articleinfo> {
      * @return {@link ResponseResult}<{@link ArticleVo}>
      */
     ResponseResult<ArticleVo> articleDetailById(Long id);
+
+    /**
+     * 按类别查找文章列表
+     *
+     * @param byCategoryDto 按类别dto
+     * @return {@link ResponseResult}<{@link List}<{@link ArticleVo}>>
+     */
+    ResponseResult<List<ArticleVo>> articleListByCategory(ArticleListByCategoryDto byCategoryDto);
 }
 
 

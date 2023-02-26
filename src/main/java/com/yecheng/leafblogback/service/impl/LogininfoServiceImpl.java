@@ -3,7 +3,7 @@ package com.yecheng.leafblogback.service.impl;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yecheng.leafblogback.mapper.LogininfoMapper;
-import com.yecheng.leafblogback.entity.Logininfo;
+import com.yecheng.leafblogback.bean.entity.Logininfo;
 import com.yecheng.leafblogback.service.LogininfoService;
 
 /**

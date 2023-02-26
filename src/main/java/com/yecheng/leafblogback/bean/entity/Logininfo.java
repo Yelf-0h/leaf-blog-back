@@ -1,8 +1,10 @@
-package com.yecheng.leafblogback.entity;
+package com.yecheng.leafblogback.bean.entity;
 
 import java.util.Date;
 
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.IdType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +22,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @NoArgsConstructor
 @TableName("ly_logininfo")
 public class Logininfo  {
-    @TableId
+    @TableId(type = IdType.AUTO)
     /**
     id主键
     */    

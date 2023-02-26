@@ -1,9 +1,9 @@
 package com.yecheng.leafblogback.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.yecheng.leafblogback.entity.Category;
+import com.yecheng.leafblogback.bean.entity.Category;
 import com.yecheng.leafblogback.utils.ResponseResult;
-import com.yecheng.leafblogback.vo.CategoryVo;
+import com.yecheng.leafblogback.bean.vo.CategoryVo;
 
 /**
  * (Category)表服务接口

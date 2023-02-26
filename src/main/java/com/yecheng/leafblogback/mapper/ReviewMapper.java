@@ -1,7 +1,7 @@
 package com.yecheng.leafblogback.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.yecheng.leafblogback.entity.Review;
+import com.yecheng.leafblogback.bean.entity.Review;
 
 /**
  * (Review)表数据库访问层

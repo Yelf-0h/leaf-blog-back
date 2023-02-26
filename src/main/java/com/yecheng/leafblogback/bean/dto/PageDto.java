@@ -1,4 +1,4 @@
-package com.yecheng.leafblogback.Dto;
+package com.yecheng.leafblogback.bean.dto;
 
 import lombok.Data;
 
