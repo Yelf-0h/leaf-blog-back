@@ -1,5 +1,9 @@
 package com.yecheng.leafblogback.service.impl;
 
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yecheng.leafblogback.bean.dto.ArticleListByCategoryDto;
@@ -12,13 +16,17 @@ import com.yecheng.leafblogback.bean.vo.ArticleVo;
 import com.yecheng.leafblogback.bean.vo.HotArticleVo;
 import com.yecheng.leafblogback.bean.vo.TimeArticleVo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yecheng.leafblogback.mapper.ArticleinfoMapper;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * (Articleinfo)表服务实现类
@@ -47,6 +55,8 @@ public class ArticleinfoServiceImpl extends ServiceImpl<ArticleinfoMapper, Artic
 
     @Resource
     private CategoryService categoryService;
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
 
     /**
@@ -62,6 +72,14 @@ public class ArticleinfoServiceImpl extends ServiceImpl<ArticleinfoMapper, Artic
             log.info("ArticleinfoServiceImpl.articlePage业务中，出现：{}", "页面大小超过最大值18，疑似恶意访问！");
             pageDto.setPageSize(maxPageSize);
         }
+        String articlePage = stringRedisTemplate.opsForValue().get("articlePage:" + pageDto.getPageNum() + "-" + pageDto.getPageSize());
+        if (StringUtils.hasText(articlePage)){
+            JSONObject entries = JSONUtil.parseObj(articlePage);
+            JSONArray articleVosJSONArray = (JSONArray)entries.get("articleVos");
+            Integer total = (Integer)entries.get("total");
+            List<ArticleVo> articleVos = JSONUtil.toList(articleVosJSONArray, ArticleVo.class);
+            return ResponseResult.okResult(articleVos, total.longValue());
+        }
         // 获取文章列表，按推荐权重与创建时间降序显示
         LambdaQueryWrapper<Articleinfo> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Articleinfo::getArticlestate, 0);
@@ -76,6 +94,12 @@ public class ArticleinfoServiceImpl extends ServiceImpl<ArticleinfoMapper, Artic
             ArticleVo articleVo = setArticleVo(articleinfo);
             articleVos.add(articleVo);
         });
+        Map<String, Object> stringObjectHashMap = new HashMap<>(2);
+        stringObjectHashMap.put("articleVos",articleVos);
+        stringObjectHashMap.put("total",page.getTotal());
+        JSON parse = JSONUtil.parse(stringObjectHashMap);
+        String value = JSONUtil.toJsonStr(parse);
+        stringRedisTemplate.opsForValue().set("articlePage:" + pageDto.getPageNum() + "-" + pageDto.getPageSize(),value);
         log.info("ArticleinfoServiceImpl.articlePage业务结束，结果为：{}", articleVos.size());
         return ResponseResult.okResult(articleVos,page.getTotal());
 
@@ -89,6 +113,13 @@ public class ArticleinfoServiceImpl extends ServiceImpl<ArticleinfoMapper, Artic
      */
     @Override
     public ResponseResult<List<HotArticleVo>> hotArticle() {
+
+        String hotArticle = stringRedisTemplate.opsForValue().get("hotArticle:1-5");
+        if (StringUtils.hasText(hotArticle)){
+            JSONArray objects = JSONUtil.parseArray(hotArticle);
+            List<HotArticleVo> hotArticleVos = JSONUtil.toList(objects, HotArticleVo.class);
+            return ResponseResult.okResult(hotArticleVos);
+        }
 
         Page<Review> reviewPage = new Page<>(1, 5);
         LambdaQueryWrapper<Review> reviewQW = new LambdaQueryWrapper<>();
@@ -105,8 +136,12 @@ public class ArticleinfoServiceImpl extends ServiceImpl<ArticleinfoMapper, Artic
             hotArticleVo.setReview(review.getReview());
             hotArticleVos.add(hotArticleVo);
         });
+        JSON parse = JSONUtil.parse(hotArticleVos);
+        String value = JSONUtil.toJsonStr(parse);
+        stringRedisTemplate.opsForValue().set("hotArticle:1-5",value);
         log.info("ArticleinfoServiceImpl.hotArticle业务结束，结果为：{}", hotArticleVos);
         return ResponseResult.okResult(hotArticleVos);
+        
     }
 
     /**
@@ -147,6 +182,12 @@ public class ArticleinfoServiceImpl extends ServiceImpl<ArticleinfoMapper, Artic
      */
     @Override
     public ResponseResult<ArticleVo> articleDetailById(Long id) {
+        String articleRedis = stringRedisTemplate.opsForValue().get("articleDetailById:" + id);
+        if (StringUtils.hasText(articleRedis)){
+            JSONObject entries = JSONUtil.parseObj(articleRedis);
+            ArticleVo toBean = JSONUtil.toBean(entries, ArticleVo.class);
+            return ResponseResult.okResult(toBean);
+        }
         Articleinfo articleinfo = getById(id);
         if (articleinfo == null) {
             return ResponseResult.errorResult(5001, "请求有误，找不到该文章！");
@@ -183,6 +224,9 @@ public class ArticleinfoServiceImpl extends ServiceImpl<ArticleinfoMapper, Artic
             reviewSum = review.getReview();
         }
         articleVo.setReview(reviewSum);
+        JSON parse = JSONUtil.parse(articleVo);
+        String articleVoStr = JSONUtil.toJsonStr(parse);
+        stringRedisTemplate.opsForValue().set("articleDetailById:"+articleVo.getId(),articleVoStr);
         log.info("ArticleinfoServiceImpl.articleDetailById业务结束，结果为：{}", articleVo);
         return ResponseResult.okResult(articleVo);
     }

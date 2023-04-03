@@ -11,6 +11,7 @@ import cn.hutool.jwt.JWTPayload;
 import cn.hutool.jwt.JWTUtil;
 import com.yecheng.leafblogback.bean.entity.Articleinfo;
 import com.yecheng.leafblogback.service.ArticleinfoService;
+import com.yecheng.leafblogback.utils.KodoOssUtil;
 import com.yecheng.leafblogback.utils.SystemConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -18,11 +19,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.*;
 
-// @SpringBootTest
+@SpringBootTest
 @Slf4j
 class LeafBlogBackApplicationTests {
 
@@ -32,23 +38,27 @@ class LeafBlogBackApplicationTests {
     @Resource
     private StringRedisTemplate stringRedisTemplate;
 
+    @Resource
+    private KodoOssUtil kodoOssUtil;
+
 
     @Test
     public void contextLoads() {
         List<Articleinfo> list = articleinfoService.list();
-        log.info("LeafBlogBackApplicationTests.contextLoads业务结束，结果为：{}",list);
+        log.info("LeafBlogBackApplicationTests.contextLoads业务结束，结果为：{}", list);
     }
 
     @Test
     void redisTest() {
         Long add = stringRedisTemplate.opsForSet().add("108", "108Test");
-        log.info("LeafBlogBackApplicationTests.redisTest业务结束，结果为：{}",add);
+        log.info("LeafBlogBackApplicationTests.redisTest业务结束，结果为：{}", add);
     }
 
     @Test
     void jwtc() {
         Map<String, Object> map = new HashMap<String, Object>() {
             private static final long serialVersionUID = 1L;
+
             {
                 put("uid", Integer.parseInt("123"));
                 put("expire_time", System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 15);
@@ -101,5 +111,53 @@ class LeafBlogBackApplicationTests {
         String token = JWTUtil.createToken(map, SystemConstant.TOKEN_KEY.getBytes());
         String token2 = JWTUtil.createToken(map2, SystemConstant.TOKEN_KEY.getBytes());
         System.out.println(token2.equals(token));
+    }
+
+    @Test
+    void Thread() {
+
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        ExecutorService executorService1 = Executors.newFixedThreadPool(10);
+        ExecutorService executorService2 = Executors.newSingleThreadExecutor();
+
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(10, 20, 0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueue(10));
+        for (int i = 0; i < 100; i++) {
+            executorService.execute(new MyThread(i));
+        }
+    }
+
+    @Test
+    void upload() {
+        KodoOssUtil kodoOssUtil = new KodoOssUtil();
+        File file = new File("https://fastdfs-gateway.ys7.com/3cea/1/capture/003iT6EU2XtMBOgbYRinSfn9QCQXvXy.jpg?Expires=1680241497&OSSAccessKeyId=LTAIzI38nEHqg64n&Signature=AT09jZmb3eNqeuSUTlHGr%2Bn%2BiO8%3D");
+
+        try {
+            InputStream inputStream = new FileInputStream(file);
+            String upload = kodoOssUtil.upload("asdadasd.jpg", inputStream);
+            System.out.println(upload);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    class MyThread implements Runnable {
+        int i=0;
+
+        public MyThread(int i) {
+            this.i = i;
+        }
+
+        @Override
+        public void run() {
+
+            System.out.println(Thread.currentThread().getName() + "--->" + i);
+            try {
+                Thread.sleep(1000L);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

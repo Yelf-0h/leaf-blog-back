@@ -11,6 +11,7 @@ import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -50,6 +51,24 @@ public class KodoOssUtil {
         String upToken = auth.uploadToken(bucket);
 
         Response response = uploadManager.put(uploadBytes, key, upToken);
+
+        return baseUrl + key;
+    }
+    public String upload(String fileName, InputStream file) throws Exception {
+        // 构造一个带指定 Region 对象的配置类
+        Configuration cfg = new Configuration();
+        // 指定分片上传版本
+        cfg.resumableUploadAPIVersion = Configuration.ResumableUploadAPIVersion.V2;
+        //...其他参数参考类注释
+        UploadManager uploadManager = new UploadManager(cfg);
+
+        // 默认不指定key的情况下，以文件内容的hash值作为文件名
+        key = SystemConstant.OSS_FILE_CLASS+fileName;
+        InputStream byteInputStream = file;
+        Auth auth = Auth.create(accessKey, secretKey);
+        String upToken = auth.uploadToken(bucket);
+
+        Response response = uploadManager.put(byteInputStream,key,upToken,null, null);
 
         return baseUrl + key;
     }
