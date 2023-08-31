@@ -1,0 +1,69 @@
+.btnsend[data-v-278bd944] {
+    padding: 12px 15px
+}
+
+.juzhong[data-v-278bd944] {
+    width: 280px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+img[data-v-278bd944] {
+    width: 85px;
+    height: 85px
+}
+
+.login-box-div[data-v-278bd944] {
+    padding-top: 120px
+}
+
+.login-box-img[data-v-278bd944] {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px
+}
+
+.login-box-input[data-v-278bd944] {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 280px
+}
+
+.login-box-span[data-v-278bd944] {
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    width: 280px;
+    color: #666
+}
+
+.login-box-button[data-v-278bd944] {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px
+}
+
+.login-button[data-v-278bd944] {
+    width: 280px;
+    background-color: #eee;
+    border: 1px solid #dcdfe6;
+    color: #666
+}
+
+.login-button[data-v-278bd944]:hover {
+    background-color: #e9b5fa;
+    border: 1px solid #e9b5fa;
+    color: #fff
+}
+
+.forget-password-btn[data-v-278bd944], .register-btn[data-v-278bd944] {
+    color: #0090f7;
+    cursor: pointer
+}

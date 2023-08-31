@@ -1,0 +1,51 @@
+#app, body, html {
+    width: 100%;
+    margin: 0;
+    padding: 0
+}
+
+body, div, input, span {
+    font-family: pingFangSC-Medium
+}
+
+@font-face {
+    font-family: pingFangSC-Regular;
+    src: url(/fonts/PingFang%20Regular_0.d24a58aa.ttf);
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: pingFangSC-Medium;
+    src: url(http://kodo.yelingfa.top/lyblog/js/PingFang%20Medium_0.093b9df7.ttf);
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: pingFangSC-Bold;
+    src: url(/fonts/PingFang%20Bold_0.2b540428.ttf);
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: pingFangSC-Heavy;
+    src: url(/fonts/PingFang%20Heavy_0.65cad6b3.ttf);
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: pingFangSC-ExtraLight;
+    src: url(/fonts/PingFang%20ExtraLight_0.defe5116.ttf);
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: pingFangSC-Light;
+    src: url(/fonts/PingFang%20Light_0.e49821c8.ttf);
+    font-weight: 400;
+    font-style: normal
+}

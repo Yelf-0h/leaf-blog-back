@@ -4,11 +4,15 @@ import com.yecheng.leafblogback.bean.dto.*;
 import com.yecheng.leafblogback.bean.entity.User;
 import com.yecheng.leafblogback.bean.vo.LoginVo;
 import com.yecheng.leafblogback.service.UserService;
+import com.yecheng.leafblogback.test.Animal;
 import com.yecheng.leafblogback.utils.ResponseResult;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Yelf
@@ -20,16 +24,17 @@ public class UserController {
 
     @Resource
     private UserService userService;
-
+    @Autowired
+    private Map<String, Animal> animalMap = new HashMap<>();
     @PostMapping("login")
     public ResponseResult<LoginVo> login(@RequestBody LoginDto user){
+        System.out.println(animalMap);
         return userService.login(user);
     }
     @GetMapping("/logout")
     public ResponseResult<String> logout(){
         return userService.logout();
     }
-
     @PostMapping("register")
     public ResponseResult<String> register(@RequestBody @Validated RegisterDto registerDto){
         return userService.register(registerDto);
