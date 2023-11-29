@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author Yelf
@@ -28,7 +30,7 @@ public class UserController {
     private Map<String, Animal> animalMap = new HashMap<>();
     @PostMapping("login")
     public ResponseResult<LoginVo> login(@RequestBody LoginDto user){
-        System.out.println(animalMap);
+        System.out.println(animalMap + "1121231231231");
         return userService.login(user);
     }
     @GetMapping("/logout")
