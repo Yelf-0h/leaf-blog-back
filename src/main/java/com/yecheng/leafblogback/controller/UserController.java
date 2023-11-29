@@ -39,6 +39,7 @@ public class UserController {
     }
     @PostMapping("register")
     public ResponseResult<String> register(@RequestBody @Validated RegisterDto registerDto){
+        System.out.println("变更333333333333333333333333333333333333");
         return userService.register(registerDto);
     }
 
