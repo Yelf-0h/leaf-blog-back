@@ -35,6 +35,7 @@ public class UserController {
     }
     @GetMapping("/logout")
     public ResponseResult<String> logout(){
+        System.out.println("变更66666666666666666666666");
         return userService.logout();
     }
     @PostMapping("register")
