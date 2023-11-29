@@ -35,6 +35,7 @@ public class UploadController {
     @PostMapping("uploadUserImage")
     public ResponseResult<String> uploadUserImage(MultipartFile file){
         if (Objects.isNull(file)){
+            System.out.println("System.out.println(animalMap + \"1121231231231\"); 变更2222");
             return ResponseResult.errorResult(500,"文件上传失败！空文件");
         }
         String fileName = IdUtil.simpleUUID()+"-"+file.getOriginalFilename();
