@@ -24,6 +24,7 @@ public class SendEmailMsgController {
 
     @GetMapping("sendEmail")
     public ResponseResult<Object> sendEmailCode(@Validated EmailDto emailDto){
+        System.out.println("System.out.println(\"System.out.println(animalMap + \\\"1121231231231\\\"); 变更444444\");");
         return sendEmailService.sendEmailCode(emailDto.getEmail());
     }
 }
