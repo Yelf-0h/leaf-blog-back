@@ -21,6 +21,7 @@ public class ReviewController {
 
     @GetMapping("add")
     public ResponseResult addReview(Long id){
+        System.out.println("变更55555555555555555555555555555555555");
         return reviewService.addReview(id);
     }
 }
